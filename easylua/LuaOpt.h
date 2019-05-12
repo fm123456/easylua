@@ -58,7 +58,11 @@ private:
 		if (ret == 0)
 		{
 			char err_msg[256] = { 0 };
-			_snprintf(err_msg, 256, "index %d is not integer", pos);
+#ifdef WIN32
+            _snprintf(err_msg, 256, "index %d is not integer", pos);
+#else
+            snprintf(err_msg, 256, "index %d is not integer", pos);
+#endif
 			lua_pushstring(L, err_msg);
 			return VAL_TYPE_NOT_MATCH;
 		}
@@ -79,7 +83,11 @@ private:
 		if (ret == 0)
 		{
 			char err_msg[256] = { 0 };
-			_snprintf(err_msg, 256, "index %d is not number", pos);
+#ifdef WIN32
+            _snprintf(err_msg, 256, "index %d is not number", pos);
+#else
+            snprintf(err_msg, 256, "index %d is not number", pos);
+#endif
 			lua_pushstring(L, err_msg);
 			return VAL_TYPE_NOT_MATCH;
 		}
