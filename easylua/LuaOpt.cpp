@@ -38,7 +38,11 @@ int32_t LuaOpt::GetStackVal(lua_State* L, std::string& val, int32_t pos)
 	if (ret == 0)
 	{
 		char err_msg[256] = { 0 };
+#ifdef WIN32
 		_snprintf(err_msg, 256, "index %d is not string", pos);
+#else
+        snprintf(err_msg, 256, "index %d is not string", pos);
+#endif // WIN32
 		lua_pushstring(L, err_msg);
 		return VAL_TYPE_NOT_MATCH;
 	}
@@ -52,7 +56,11 @@ int32_t LuaOpt::GetStackVal(lua_State* L, bool& val, int32_t pos)
 	if (ret == 0)
 	{
 		char err_msg[256] = { 0 };
-		_snprintf(err_msg, 256, "index %d is not boolean", pos);
+#ifdef WIN32
+        _snprintf(err_msg, 256, "index %d is not boolean", pos);
+#else
+        snprintf(err_msg, 256, "index %d is not boolean", pos);
+#endif // WIN32
 		lua_pushstring(L, err_msg);
 		return VAL_TYPE_NOT_MATCH;
 	}
